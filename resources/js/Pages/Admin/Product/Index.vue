@@ -1,4 +1,5 @@
 <template>
+    <Head title="Products" />
     <AdminLayout>
         <ProductList :products = "products" ></ProductList>
     </AdminLayout>
@@ -10,4 +11,5 @@ defineProps({
 })
 import AdminLayout from '../Components/AdminLayout.vue'
 import ProductList from './ProductList.vue'
+import { Head } from '@inertiajs/vue3';
 </script>

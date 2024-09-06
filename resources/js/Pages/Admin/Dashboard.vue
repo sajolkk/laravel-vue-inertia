@@ -1,4 +1,5 @@
 <template>
+    <Head title="Dashboard" />
     <AdminLayout>
         <div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
@@ -29,6 +30,7 @@
 import { onMounted } from 'vue'
 import { initFlowbite } from 'flowbite'
 import AdminLayout from './Components/AdminLayout.vue'
+import { Head } from '@inertiajs/vue3';
 // initialize components based on data attribute selectors
 onMounted(() => {
     initFlowbite();
