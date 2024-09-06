@@ -96,7 +96,8 @@ const AddProduct = async () => {
                     icon: 'success',
                     position: 'top-end',
                     showConfirmButton: false,
-                    title: page.props.flash.success
+                    timer: 3000, // The notification will disappear after 3 seconds
+                    title: page.props.flash?.success || 'Product added successfully!'
                 })
                 dialogVisible.value = false;
                 resetFormData();
@@ -135,6 +136,7 @@ const deleteImage = async (pimage, index) => {
                     icon: "success",
                     position: "top-end",
                     showConfirmButton: false,
+                    timer: 3000, // The notification will disappear after 3 seconds
                     title: page.props.flash.success
                 });
             }
@@ -169,6 +171,7 @@ const updateProduct = async () => {
                     icon: "success",
                     position: "top-end",
                     showConfirmButton: false,
+                    timer: 3000, // The notification will disappear after 3 seconds
                     title: page.props.flash.success
                 });
             }
@@ -232,21 +235,21 @@ const handleClose = (done) => {
             <form @submit.prevent="editMode ? updateProduct() : AddProduct()">
                 <div class="relative z-0 w-full mb-6 group">
                     <input v-model="title" type="text" name="floating_title" id="floating_title"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-600 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer "
                         placeholder=" " required />
                     <label for="floating_title"
                         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Title</label>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
                     <input type="text" name="floating_price" id="floating_price"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-600 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " required v-model="price" />
                     <label for="floating_price"
                         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Price</label>
                 </div>
                 <div class="relative z-0 w-full mb-6 group">
                     <input type="number" name="qty" id="floating_qty"
-                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                        class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-600 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                         placeholder=" " required v-model="quantity" />
                     <label for="floating_qty"
                         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Quantity</label>
@@ -291,7 +294,7 @@ const handleClose = (done) => {
                 <div class="grid  md:gap-6">
                     <div class="relative z-0 w-full mb-6 group">
                         <el-upload v-model:file-list="productImages" list-type="picture-card" multiple
-                            :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :on-change="handleFileChange">
+                            :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :on-change="handleFileChange" :auto-upload="false">
                             <elIcon>
                                 <Plus />
                             </elIcon>

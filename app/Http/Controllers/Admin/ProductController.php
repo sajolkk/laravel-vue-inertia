@@ -59,7 +59,8 @@ class ProductController extends Controller
                 ]);
             }
         }
-        return redirect()->route('admin.products.index')->with('success', 'Product created successfully.');
+        session()->flash('success', 'Product added successfully!');
+        return redirect()->route('admin.products.index');
     }
 
     //update 
@@ -94,18 +95,22 @@ class ProductController extends Controller
             }
         }
         $product->update();
-        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully.');
+        session()->flash('success', 'Product updated successfully.');
+        return redirect()->route('admin.products.index');
     }
 
     public function deleteImage($id)
     {
         $image = ProductImage::where('id', $id)->delete();
-        return redirect()->route('admin.products.index')->with('success', 'Image deleted successfully.');
+        session()->flash('success', 'Image deleted successfully.');
+
+        return redirect()->route('admin.products.index');
     }
 
     public function destory($id)
     {
         $product = Product::findOrFail($id)->delete();
-        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully.');
+        session()->flash('success', 'Product deleted successfully.');
+        return redirect()->route('admin.products.index');
     }
 }
