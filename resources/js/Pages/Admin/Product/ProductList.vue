@@ -2,6 +2,7 @@
 import { router, usePage } from '@inertiajs/vue3';
 import { ref } from 'vue'
 import { Plus } from '@element-plus/icons-vue'
+import { ElMessageBox } from 'element-plus';
 
 defineProps({
     products: Array
@@ -210,6 +211,16 @@ const deleteProduct = (product, index) => {
     })
 
 }
+
+const handleClose = (done) => {
+  ElMessageBox.confirm('Are you sure to close this dialog?')
+    .then(() => {
+      done()
+    })
+    .catch(() => {
+      // catch error
+    })
+}
 </script>
 <template>
     <section class="  p-3 sm:p-5">
@@ -281,9 +292,9 @@ const deleteProduct = (product, index) => {
                     <div class="relative z-0 w-full mb-6 group">
                         <el-upload v-model:file-list="productImages" list-type="picture-card" multiple
                             :on-preview="handlePictureCardPreview" :on-remove="handleRemove" :on-change="handleFileChange">
-                            <el-icon>
+                            <elIcon>
                                 <Plus />
-                            </el-icon>
+                            </elIcon>
                         </el-upload>
 
                     </div>
