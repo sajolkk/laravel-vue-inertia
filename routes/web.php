@@ -1,22 +1,32 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\ProductController;
+use App\Http\Controllers\User\DashboardController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+Route::get('/', [HomeController::class,'index'])->name('home');
+Route::get('/dashboard',[DashboardController::class,'index'])->middleware(['auth', 'verified'])->name('dashboard');
+
+//routes for products list and filter 
+Route::prefix('products')->group(function ()  {
+    Route::get('/',[ProductController::class, 'index'])->name('products.index');
+    
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//add to cart 
+
+Route::prefix('cart')->controller(CartController::class)->group(function () {
+    Route::get('view','view')->name('cart.view');
+    Route::post('store/{product}','store')->name('cart.store');
+    Route::patch('update/{product}','update')->name('cart.update');
+    Route::delete('delete/{product}','delete')->name('cart.delete');
+});
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
